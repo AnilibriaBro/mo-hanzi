@@ -44,6 +44,21 @@
 (PyTorch), потом экспорт в ONNX и запуск в браузере через ONNX Runtime Web. Посмотреть обучающие
 картинки глазами — `ml/preview.py`.
 
+### Результаты
+
+| Проверка | Точность |
+|---|---|
+| Обучающие картинки с обычными искажениями (3 000 штук) | 100% |
+| Картинки с искажениями в 1,4 раза сильнее, чем при обучении | 99,9% |
+| 8 иероглифов, нарисованных мышью в приложении (王 日 山 中 工 木 大 口) | 8 из 8 с первого варианта |
+
+Обучение: 30 000 шагов по 256 картинок, около 1 ч 45 мин на ноутбучной RTX 5070.
+Модель сжата до 8-битных весов: 20,4 МБ → 5,1 МБ, точность не изменилась (`ml/shrink.py`).
+
+Честно о границах: настоящих рукописных образцов от разных людей у меня нет, поэтому главная
+цифра — по сгенерированным картинкам. Похожие иероглифы (日 и 曰, 中 и 巾) сеть иногда путает,
+если нарисовать их небрежно, но верный вариант при этом остаётся в списке.
+
 ### Из чего сделано
 
 | Часть | Технологии |
@@ -63,7 +78,7 @@ npm run dev
 ```
 
 Пересобрать данные из исходников: `python scripts/build_data.py`.
-Обучить сеть (нужна видеокарта NVIDIA): `python ml/train.py --steps 30000`.
+Обучить сеть (нужна видеокарта NVIDIA): `python ml/train.py --steps 30000`, затем сжать: `python ml/shrink.py`.
 
 ### Структура
 
@@ -117,6 +132,21 @@ The network is a CNN with about 5M parameters: 4 blocks of two 3×3 convolutions
 `ml/train.py` (PyTorch); the model is exported to ONNX and runs in the browser with ONNX Runtime
 Web. To look at training images, run `ml/preview.py`.
 
+### Results
+
+| Test | Accuracy |
+|---|---|
+| Training-style images with normal distortion (3,000) | 100% |
+| Images distorted 1.4× harder than in training | 99.9% |
+| 8 characters drawn with a mouse in the app (王 日 山 中 工 木 大 口) | 8 of 8, first guess |
+
+Training: 30,000 steps of 256 images, about 1 h 45 min on a laptop RTX 5070.
+The model is quantized to 8-bit weights: 20.4 MB → 5.1 MB with no accuracy loss (`ml/shrink.py`).
+
+Limits, honestly: I don't have real handwriting samples from many people, so the headline number
+is measured on generated images. Similar characters (日 vs 曰, 中 vs 巾) can get mixed up when drawn
+sloppily, but the right one stays in the list.
+
 ### Built with
 
 | Part | Technology |
@@ -136,4 +166,4 @@ npm run dev
 ```
 
 Rebuild data from sources: `python scripts/build_data.py`.
-Train the network (needs an NVIDIA GPU): `python ml/train.py --steps 30000`.
+Train the network (needs an NVIDIA GPU): `python ml/train.py --steps 30000`, then shrink it: `python ml/shrink.py`.
