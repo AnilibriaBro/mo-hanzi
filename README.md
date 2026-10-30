@@ -1,5 +1,7 @@
 # 墨 Mo — тренажёр иероглифов HSK с распознаванием почерка
 
+**Попробовать / Try it: https://anilibriabro.github.io/mo-hanzi/**
+
 **[RU](#ru) | [EN](#en)**
 
 ---
