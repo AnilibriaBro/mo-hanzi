@@ -207,6 +207,10 @@ kbd {
 .level:hover { background: var(--paper-2); color: var(--ink); }
 .level-on { border-color: var(--ink); color: var(--ink); }
 .levels::before { content: 'HSK'; align-self: center; font-weight: 600; font-size: 0.85rem; margin-right: 0.35rem; }
+@media (max-width: 520px) {
+  .levels { gap: 0.1rem; }
+  .level { min-width: 2.1rem; padding: 0.35rem 0.35rem; }
+}
 
 .sheet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)); gap: 3px; }
 .dot { display: inline-block; aspect-ratio: 1; min-width: 10px; border-radius: 2px; border: 1px solid var(--guide-soft); background: transparent; }
